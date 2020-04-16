@@ -16,11 +16,12 @@ type Client struct {
 // If the response frame doesn't arrive on time, an error is returned.
 func (c *Client) Do(req *Request) (*Response, error) {
 	respChan := make(chan can.WaitResponse)
+	// Start listening
 	go func() {
 		response := <-can.Wait(c.Bus, req.ResponseID, c.Timeout)
 		respChan <- response
 	}()
-	time.Sleep(time.Millisecond * 15)
+	time.Sleep(time.Millisecond * 10) // wait till listener ready
 	if err := c.Bus.Publish(req.Frame.CANFrame()); err != nil {
 		return nil, err
 	}
