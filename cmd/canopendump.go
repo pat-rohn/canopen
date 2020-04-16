@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/brutella/can"
-	"github.com/brutella/canopen"
+	"github.com/pat-rohn/canopen"
 	"log"
 	"os"
 	"os/signal"
